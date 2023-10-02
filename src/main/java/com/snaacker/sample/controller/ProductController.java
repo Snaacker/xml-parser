@@ -18,19 +18,23 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/api/v1")
 public class ProductController {
-  private ProductService productService;
-  @Autowired
-  public ProductController(ProductService productService){
-    this.productService = productService;
-  }
-  @GetMapping("/product")
-  public ResponseEntity<List<ProductResponse>> getProductsByProductFeedId(@PathVariable Long productId) {
-    return new ResponseEntity<>(productService.getProductsByProductFeedId(productId), HttpStatus.OK);
-  }
+    private ProductService productService;
 
-  @PostMapping("/product")
-  public ResponseEntity<String> uploadXML(@RequestParam("file") MultipartFile multipartFile)
-      throws IOException {
-    return new ResponseEntity<>(productService.loadProducts(multipartFile), HttpStatus.OK);
-  }
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping("/product")
+    public ResponseEntity<List<ProductResponse>> getProductsByProductFeedId(
+            @PathVariable Long productId) {
+        return new ResponseEntity<>(
+                productService.getProductsByProductFeedId(productId), HttpStatus.OK);
+    }
+
+    @PostMapping("/product")
+    public ResponseEntity<String> uploadXML(@RequestParam("file") MultipartFile multipartFile)
+            throws IOException {
+        return new ResponseEntity<>(productService.loadProducts(multipartFile), HttpStatus.OK);
+    }
 }

@@ -17,28 +17,28 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ProductEndpointTest {
-  @Autowired private MockMvc mockMvc;
+    @Autowired private MockMvc mockMvc;
 
-  @Test
-  public void testUploadEndpoint() throws Exception {
-    Resource fileResource = new ClassPathResource("sample.xml");
-    MockMultipartFile firstFile =
-        new MockMultipartFile(
-            "sample",
-            fileResource.getFilename(),
-            MediaType.MULTIPART_FORM_DATA_VALUE,
-            fileResource.getInputStream());
+    @Test
+    public void testUploadEndpoint() throws Exception {
+        Resource fileResource = new ClassPathResource("sample.xml");
+        MockMultipartFile firstFile =
+                new MockMultipartFile(
+                        "sample",
+                        fileResource.getFilename(),
+                        MediaType.MULTIPART_FORM_DATA_VALUE,
+                        fileResource.getInputStream());
 
-    assertNotNull(firstFile);
-    mockMvc
-        .perform(
-            MockMvcRequestBuilders.multipart("/api/v1/product").file("file", firstFile.getBytes()))
-        .andExpect(MockMvcResultMatchers.status().isOk());
-  }
+        assertNotNull(firstFile);
+        mockMvc.perform(
+                        MockMvcRequestBuilders.multipart("/api/v1/product")
+                                .file("file", firstFile.getBytes()))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
 
-  //  @Test
-  //  public void testGetProductEndpoint() throws Exception {
-  //    mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/product/1"))
-  //        .andExpect(MockMvcResultMatchers.status().isOk());
-  //  }
+    //  @Test
+    //  public void testGetProductEndpoint() throws Exception {
+    //    mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/product/1"))
+    //        .andExpect(MockMvcResultMatchers.status().isOk());
+    //  }
 }
