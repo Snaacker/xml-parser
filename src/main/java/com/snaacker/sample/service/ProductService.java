@@ -1,5 +1,6 @@
 package com.snaacker.sample.service;
 
+import com.snaacker.sample.exception.XMLParserException;
 import com.snaacker.sample.model.ProductResponse;
 import com.snaacker.sample.model.xml.output.Result;
 import com.snaacker.sample.model.xml.output.Result.Products.Product;
@@ -80,6 +81,7 @@ public class ProductService {
             ClassLoader classLoader = getClass().getClassLoader();
             URL resource = classLoader.getResource("Products_Def.xsd");
             if (resource == null) {
+                logger.error("Schema is missing");
                 throw new IllegalArgumentException("XSD file is missing ");
             }
             Schema schema = factory.newSchema(new File(resource.toURI()));
@@ -87,10 +89,13 @@ public class ProductService {
             File xmlFile = new File("files-upload/" + tempFileName);
             validator.validate(new StreamSource(xmlFile));
         } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException("Exception while validating file: " + e.getMessage());
+            logger.error("Exception while validating file: " + e.getMessage());
+            throw new XMLParserException("Exception while validating file: " + e.getMessage());
         } catch (SAXException e) {
-            throw new RuntimeException(
-                    "Schema violate, please provide file with correct schema" + e.getMessage());
+            logger.error(
+                    "Schema violate, please provide file with correct schema " + e.getMessage());
+            throw new XMLParserException(
+                    "Schema violate, please provide file with correct schema " + e.getMessage());
         }
     }
 
@@ -198,7 +203,7 @@ public class ProductService {
             return (Result) jaxbUnmarshaller.unmarshal(xmlFile);
         } catch (JAXBException e) {
             logger.error(e.getMessage());
-            throw new RuntimeException(e.getMessage());
+            throw new XMLParserException("Unable to load object", e);
         }
     }
 
@@ -215,8 +220,9 @@ public class ProductService {
         try (InputStream inputStream = multipartFile.getInputStream()) {
             Path filePath = uploadPath.resolve(serverFileName);
             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException ioe) {
-            throw new IOException("Could not save file: " + fileName, ioe);
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+            throw new XMLParserException("Could not save file: " + fileName, e);
         }
         return fileCode + "-" + fileName;
     }
