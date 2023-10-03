@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ns2="urn:com:tradedoubler:pf:model:xml:common" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:com:tradedoubler:pf:model:xml:output" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="Products_Schema.xsd" namespace="urn:com:tradedoubler:pf:model:xml:common" />
+  <xs:element name="result">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="products">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="product">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element ref="ns2:name" />
+                    <xs:element ref="ns2:description" />
+                    <xs:element ref="ns2:productImage" />
+                    <xs:element ref="ns2:categories" />
+                    <xs:element ref="ns2:fields" />
+                    <xs:element ref="ns2:weight" />
+                    <xs:element ref="ns2:size" />
+                    <xs:element ref="ns2:model" />
+                    <xs:element ref="ns2:brand" />
+                    <xs:element ref="ns2:manufacturer" />
+                    <xs:element ref="ns2:techSpecs" />
+                    <xs:element ref="ns2:shortDescription" />
+                    <xs:element ref="ns2:promoText" />
+                    <xs:element ref="ns2:ean" />
+                    <xs:element ref="ns2:upc" />
+                    <xs:element ref="ns2:isbn" />
+                    <xs:element ref="ns2:mpn" />
+                    <xs:element ref="ns2:sku" />
+                    <xs:element name="offers">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="offer">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element ref="ns2:feedId" />
+                                <xs:element ref="ns2:productUrl" />
+                                <xs:element ref="ns2:programName" />
+                                <xs:element ref="ns2:programLogo" />
+                                <xs:element name="priceHistory">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element ref="ns2:price" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element ref="ns2:warranty" />
+                                <xs:element ref="ns2:inStock" />
+                                <xs:element ref="ns2:availability" />
+                                <xs:element ref="ns2:deliveryTime" />
+                                <xs:element ref="ns2:condition" />
+                                <xs:element ref="ns2:shippingCost" />
+                              </xs:sequence>
+                              <xs:attribute name="id" type="xs:string" use="required" />
+                              <xs:attribute name="sourceProductId" type="xs:string" use="required" />
+                              <xs:attribute name="modifiedDate" type="xs:unsignedLong" use="required" />
+                              <xs:attribute name="dateFormat" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="groupingId" type="xs:string" use="required" />
+                  <xs:attribute name="language" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="version" type="xs:decimal" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

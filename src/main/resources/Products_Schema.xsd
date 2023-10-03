@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:com:tradedoubler:pf:model:xml:common" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:com:tradedoubler:pf:model:xml:common" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="name" type="xs:string" />
+  <xs:element name="description" type="xs:string" />
+  <xs:element name="productImage">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="height" type="xs:unsignedByte" use="required" />
+          <xs:attribute name="width" type="xs:unsignedByte" use="required" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="categories">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="category">
+          <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required" />
+            <xs:attribute name="id" type="xs:unsignedShort" use="required" />
+            <xs:attribute name="tdCategoryName" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="fields">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="field">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="name" type="xs:string" use="required" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="weight" type="xs:string" />
+  <xs:element name="size" type="xs:string" />
+  <xs:element name="model" type="xs:string" />
+  <xs:element name="brand" type="xs:string" />
+  <xs:element name="manufacturer" type="xs:string" />
+  <xs:element name="techSpecs" type="xs:string" />
+  <xs:element name="shortDescription" type="xs:string" />
+  <xs:element name="promoText" type="xs:string" />
+  <xs:element name="ean" type="xs:string" />
+  <xs:element name="upc" type="xs:string" />
+  <xs:element name="isbn" type="xs:string" />
+  <xs:element name="mpn" type="xs:string" />
+  <xs:element name="sku" type="xs:string" />
+  <xs:element name="feedId" type="xs:unsignedInt" />
+  <xs:element name="productUrl" type="xs:string" />
+  <xs:element name="programName" type="xs:string" />
+  <xs:element name="programLogo" type="xs:string" />
+  <xs:element name="price">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:decimal">
+          <xs:attribute name="currency" type="xs:string" use="required" />
+          <xs:attribute name="date" type="xs:unsignedLong" use="required" />
+          <xs:attribute name="dateFormat" type="xs:string" use="required" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="warranty" type="xs:string" />
+  <xs:element name="inStock" type="xs:unsignedShort" />
+  <xs:element name="availability" type="xs:string" />
+  <xs:element name="deliveryTime" type="xs:string" />
+  <xs:element name="condition" type="xs:string" />
+  <xs:element name="shippingCost" type="xs:string" />
+</xs:schema>

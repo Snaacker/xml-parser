@@ -3,7 +3,6 @@ package com.snaacker.sample.controller;
 import com.snaacker.sample.model.ProductResponse;
 import com.snaacker.sample.service.ProductService;
 import java.io.IOException;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,18 +17,16 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/api/v1")
 public class ProductController {
-    private ProductService productService;
+    private final ProductService productService;
 
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController(final ProductService productService) {
         this.productService = productService;
     }
 
-    @GetMapping("/product")
-    public ResponseEntity<List<ProductResponse>> getProductsByProductFeedId(
-            @PathVariable Long productId) {
-        return new ResponseEntity<>(
-                productService.getProductsByProductFeedId(productId), HttpStatus.OK);
+    @GetMapping("/product/{id}")
+    public ResponseEntity<ProductResponse> getProductsByProductFeedId(@PathVariable Long id) {
+        return new ResponseEntity<>(productService.getProductsByProductFeedId(id), HttpStatus.OK);
     }
 
     @PostMapping("/product")

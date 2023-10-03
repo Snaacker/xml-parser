@@ -10,8 +10,6 @@ import com.snaacker.sample.FixtureTest;
 import com.snaacker.sample.model.ProductResponse;
 import com.snaacker.sample.service.ProductService;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -36,7 +34,7 @@ public class ProductControllerTest extends FixtureTest {
 
     @Test
     public void testGetProductByProductIdShouldSuccess() {
-        List<ProductResponse> returnList = Arrays.asList(new ProductResponse());
+        ProductResponse returnList = new ProductResponse();
         when(productService.getProductsByProductFeedId(anyLong())).thenReturn(returnList);
         var productResponseList = productController.getProductsByProductFeedId(1l);
         assertThat(productResponseList.getStatusCode()).isEqualTo(HttpStatus.OK);

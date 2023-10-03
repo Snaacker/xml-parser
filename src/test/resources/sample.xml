@@ -1,0 +1,48 @@
+<result version="3.0" xmlns="urn:com:tradedoubler:pf:model:xml:output" xmlns:ns2="urn:com:tradedoubler:pf:model:xml:common">
+  <products>
+    <product groupingId="skuSKU1-TV000001" language="sv">
+      <ns2:name>First Test product name</ns2:name>
+      <ns2:description>First description</ns2:description>
+      <ns2:productImage height="60" width="120">https://picsum.photos/id/1/200/300</ns2:productImage>
+      <ns2:categories>
+        <ns2:category name="Television" id="65" tdCategoryName="Televisions"/>
+        <ns2:category name="Electronic" id="40" tdCategoryName="Electronics"/>
+      </ns2:categories>
+      <ns2:fields>
+        <ns2:field name="Company">Sharp</ns2:field>
+        <ns2:field name="ProductType">TV</ns2:field>
+        <ns2:field name="HomeDelivery">Yes</ns2:field>
+      </ns2:fields>
+      <ns2:weight>1999 g</ns2:weight>
+      <ns2:size>110x60x60 cm</ns2:size>
+      <ns2:model>KajSharpTV000001</ns2:model>
+      <ns2:brand>Sharp</ns2:brand>
+      <ns2:manufacturer>Sharp</ns2:manufacturer>
+      <ns2:techSpecs>SMART HUB</ns2:techSpecs>
+      <ns2:shortDescription>Televisions from Sharp</ns2:shortDescription>
+      <ns2:promoText>Discounted price!!</ns2:promoText>
+      <ns2:ean>ean10100000000000001</ns2:ean>
+      <ns2:upc>upc10100000000000001</ns2:upc>
+      <ns2:isbn>isn10100000000000001</ns2:isbn>
+      <ns2:mpn>mpn10100000000000001</ns2:mpn>
+      <ns2:sku>SKU1-TV000001</ns2:sku>
+      <offers>
+        <offer id="3d2a9e19-7d23-42ca-af66-91164f681f2a" sourceProductId="First sourceProductId ByKIJmGVkC pglgRbbFxy" modifiedDate="1677520388461" dateFormat="epoch">
+          <ns2:feedId>99999999</ns2:feedId>
+          <ns2:productUrl>https://www.test.com?prod=1</ns2:productUrl>
+          <ns2:programName>Program302870</ns2:programName>
+          <ns2:programLogo>http://logo.gif</ns2:programLogo>
+          <priceHistory>
+            <ns2:price currency="SEK" date="1677520388461" dateFormat="epoch">115.5</ns2:price>
+          </priceHistory>
+          <ns2:warranty>10 years warranty</ns2:warranty>
+          <ns2:inStock>371</ns2:inStock>
+          <ns2:availability>In stock at supplier</ns2:availability>
+          <ns2:deliveryTime>7-20 days</ns2:deliveryTime>
+          <ns2:condition>Refurbished</ns2:condition>
+          <ns2:shippingCost>The shipping cost is 30.</ns2:shippingCost>
+        </offer>
+      </offers>
+    </product>
+  </products>
+</result>
