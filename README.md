@@ -6,12 +6,12 @@ Sample application for parser xml file and import to DB
 - Docker
 
 # How to start application
-### 1. Use startup script   
+### 1. Use startup script
 Run command ```./local-startup.sh```
 
-### 2.Manually start with Gradle   
-Set environment value for   
-- DATABASE_URL_CUSTOMIZE 
+### 2.Manually start with Gradle
+Set environment value for
+- DATABASE_URL_CUSTOMIZE
 - USER_NAME
 - USER_PASSWORD
 For example:
@@ -29,35 +29,37 @@ Run command ```./gradlew clean build```
 
 # Application endpoints
 
-### Check application health    
+### Check application health
 Return 200 "OK" if application is up and running
-- GET /healthCheck   
-
-### Upload xml file to application and load to DB   
+- GET /healthCheck
+``` curl http://localhost:8080/healthCheck```
+### Upload xml file to application and load to DB
 Return 200 "OK" if file was load successfully to DB
 - POST /api/v1/product
-
+```
+curl -F file=@"[PATH_TO_XML_FILE]" http://localhost:8080/api/v1/product
+ ```
 ### Get product by product id
 Return 200 "OK" with response object
-- GET /api/v1/product{id}   
-
+- GET /api/v1/product/{id}
+``` curl http://localhost:8080/api/v1/product/1```
 # Project structure explanation
 ## Folders
 - src/main
 - src/test
-- files-upload: storing upload file from local 
+- files-upload: storing upload file from local
 - gradle: Gradle folder
 - .github: Github action pipeline
 
 ## Packages
 - controller: Controller class
-- model: - Model class 
+- model: - Model class
 - persistent: - Persistent classes
 - repository: - Repository class
 - service: - Service class
 - util: - Utilities class
 
-# Libraries usage 
+# Libraries usage
 - Spring/Spring Boot: create web application with minimum configuration
 - Spring JPA: store data in a relational database
 - JUnit 5: testing framework
