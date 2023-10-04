@@ -39,14 +39,14 @@ public class ProductControllerTest extends FixtureTest {
                         fileResource.getFilename(),
                         MediaType.MULTIPART_FORM_DATA_VALUE,
                         fileResource.getInputStream());
-        var productResponse = productController.uploadXML(testFile);
+        var productResponse = productController.uploadProductByFile(testFile);
 
-        when(productService.loadProducts(any())).thenReturn("OK");
+        when(productService.loadProducts2DB(any())).thenReturn("OK");
         assertThat(productResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
-    public void testGetProductByProductIdShouldSuccess() {
+    public void testGetProductByFeedIdShouldSuccess() {
         List<ProductResponse> returnList = List.of(new ProductResponse());
         when(productService.getProductsByProductFeedId(anyLong())).thenReturn(returnList);
         var productResponseList = productController.getProductsByProductFeedId(1l);

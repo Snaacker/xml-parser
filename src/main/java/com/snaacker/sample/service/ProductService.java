@@ -56,7 +56,7 @@ public class ProductService {
         return returnList;
     }
 
-    public String loadProducts(MultipartFile multipartFile) {
+    public String loadProducts2DB(MultipartFile multipartFile) {
         String fileName =
                 StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
         logger.info("Start reading " + fileName);

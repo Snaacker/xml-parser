@@ -41,7 +41,7 @@ public class FileProcessService {
             URL resource = classLoader.getResource(SCHEMA_FILE_NAME);
             if (resource == null) {
                 logger.error("Schema is missing");
-                throw new XMLParserServerException("XSD file is missing ");
+                throw new XMLParserServerException("XSD file is missing");
             }
             Schema schema = factory.newSchema(new File(resource.toURI()));
             Validator validator = schema.newValidator();

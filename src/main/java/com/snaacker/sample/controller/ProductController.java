@@ -30,7 +30,8 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    public ResponseEntity<String> uploadXML(@RequestParam("file") MultipartFile multipartFile) {
-        return new ResponseEntity<>(productService.loadProducts(multipartFile), HttpStatus.OK);
+    public ResponseEntity<String> uploadProductByFile(
+            @RequestParam("file") MultipartFile multipartFile) {
+        return new ResponseEntity<>(productService.loadProducts2DB(multipartFile), HttpStatus.OK);
     }
 }

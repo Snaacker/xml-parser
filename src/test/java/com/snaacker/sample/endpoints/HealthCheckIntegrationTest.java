@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class HealthCheckEndpointTest {
+public class HealthCheckIntegrationTest {
     @Autowired private MockMvc mockMvc;
 
     @Test

@@ -26,16 +26,14 @@ dependencies {
 
 tasks.named('test') {
     filter {
-        excludeTestsMatching "*EndpointTest"
-        excludeTestsMatching "*RepositoryTest"
+        excludeTestsMatching "*IntegrationTest"
     }
     useJUnitPlatform()
 }
 
 task integrationTest(type: Test) {
     filter{
-        includeTestsMatching "*EndpointTest"
-        includeTestsMatching "*RepositoryTest"
+        includeTestsMatching "*IntegrationTest"
     }
     useJUnitPlatform()
 }

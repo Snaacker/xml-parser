@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ProductEndpointTest {
+public class ProductIntegrationTest {
     @Autowired private MockMvc mockMvc;
 
     @Test
