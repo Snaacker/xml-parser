@@ -1,25 +1,18 @@
 package com.snaacker.sample.controller;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.snaacker.sample.FixtureTest;
 import com.snaacker.sample.model.ProductResponse;
-import com.snaacker.sample.model.xml.output.Result;
-import com.snaacker.sample.persistent.Product;
 import com.snaacker.sample.service.ProductService;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
@@ -41,11 +34,11 @@ public class ProductControllerTest extends FixtureTest {
     public void testLoadProductShouldSuccess() throws IOException {
         Resource fileResource = new ClassPathResource("test.xml");
         MockMultipartFile testFile =
-            new MockMultipartFile(
-                "test",
-                fileResource.getFilename(),
-                MediaType.MULTIPART_FORM_DATA_VALUE,
-                fileResource.getInputStream());
+                new MockMultipartFile(
+                        "test",
+                        fileResource.getFilename(),
+                        MediaType.MULTIPART_FORM_DATA_VALUE,
+                        fileResource.getInputStream());
         var productResponse = productController.uploadXML(testFile);
 
         when(productService.loadProducts(any())).thenReturn("OK");

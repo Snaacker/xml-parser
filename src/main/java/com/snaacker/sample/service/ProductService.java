@@ -1,6 +1,5 @@
 package com.snaacker.sample.service;
 
-import com.snaacker.sample.exception.XMLParserServerException;
 import com.snaacker.sample.model.ProductResponse;
 import com.snaacker.sample.model.xml.output.Result;
 import com.snaacker.sample.model.xml.output.Result.Products.Product;
@@ -11,11 +10,6 @@ import com.snaacker.sample.persistent.Price;
 import com.snaacker.sample.repository.OfferRepository;
 import com.snaacker.sample.repository.PriceRepository;
 import com.snaacker.sample.repository.ProductRepository;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Unmarshaller;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -54,10 +48,11 @@ public class ProductService {
                 productRepository.getProductByFeedId(productId);
         logger.info("Getting object: " + productId);
         List<ProductResponse> returnList = new ArrayList<>();
-        returnProduct.forEach(product -> {
-            ProductResponse productResponse = new ProductResponse(product);
-            returnList.add(productResponse);
-        });
+        returnProduct.forEach(
+                product -> {
+                    ProductResponse productResponse = new ProductResponse(product);
+                    returnList.add(productResponse);
+                });
         return returnList;
     }
 

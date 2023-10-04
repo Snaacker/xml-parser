@@ -7,9 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-  @Query(
-      value =
-          "SELECT p.* FROM product p LEFT JOIN offer o ON p.offer_id = o.id WHERE o.feed_id = :feedId",
-      nativeQuery = true)
-  List<Product> getProductByFeedId(Long feedId);
+    @Query(
+            value =
+                    "SELECT p.* FROM product p LEFT JOIN offer o ON p.offer_id = o.id WHERE"
+                            + " o.feed_id = :feedId",
+            nativeQuery = true)
+    List<Product> getProductByFeedId(Long feedId);
 }

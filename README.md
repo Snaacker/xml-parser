@@ -27,8 +27,6 @@ Run command ```./gradlew clean build```
 
 # How to use API Endpoint
 
-# Application endpoints
-
 ### Check application health
 Return 200 "OK" if application is up and running
 - GET /healthCheck
@@ -39,8 +37,8 @@ Return 200 "OK" if file was load successfully to DB
 ```
 curl -F file=@"[PATH_TO_XML_FILE]" http://localhost:8080/api/v1/product
  ```
-### Get product by product id
-Return 200 "OK" with response object
+### Get product by feed_id
+Return 200 "OK" with list JSON object
 - GET /api/v1/product/{id}
 ``` curl http://localhost:8080/api/v1/product/1```
 # Project structure explanation
@@ -51,13 +49,13 @@ Return 200 "OK" with response object
 - gradle: Gradle folder
 - .github: Github action pipeline
 
-## Packages
-- controller: Controller class
-- model: - Model class
-- persistent: - Persistent classes
-- repository: - Repository class
-- service: - Service class
-- util: - Utilities class
+## Packages explanation
+- controller: handle HTTP request from client
+- model: POJO objects for parsing xml file or HTTP response object
+- persistent: declare entities use in the application
+- repository: provides the mechanism for storage, retrieval, search, update and delete operation on objects
+- service: handle application business
+- exception: declare application exception + handle exception
 
 # Libraries usage
 - Spring/Spring Boot: create web application with minimum configuration

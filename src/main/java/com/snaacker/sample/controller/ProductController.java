@@ -2,7 +2,6 @@ package com.snaacker.sample.controller;
 
 import com.snaacker.sample.model.ProductResponse;
 import com.snaacker.sample.service.ProductService;
-import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

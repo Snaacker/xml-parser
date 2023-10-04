@@ -12,7 +12,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(XMLParserException.class)
-    protected ResponseEntity<Object> handleBadRequest(RuntimeException exception, WebRequest request) {
+    protected ResponseEntity<Object> handleBadRequest(
+            RuntimeException exception, WebRequest request) {
         String bodyOfResponse = "Bad request";
         return handleExceptionInternal(
                 exception, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
@@ -22,6 +23,10 @@ public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHan
     protected ResponseEntity<Object> handleCrash(RuntimeException exception, WebRequest request) {
         String bodyOfResponse = "Internal Server Error";
         return handleExceptionInternal(
-            exception, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+                exception,
+                bodyOfResponse,
+                new HttpHeaders(),
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                request);
     }
 }
