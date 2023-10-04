@@ -2,6 +2,7 @@ package com.snaacker.sample.persistent;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -29,4 +30,7 @@ public class Price extends BaseObject {
 
     @Column(name = "date_format")
     protected String dateFormat;
+
+    @OneToOne(mappedBy = "priceHistory")
+    protected Offer offer;
 }

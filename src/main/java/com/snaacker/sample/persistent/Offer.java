@@ -1,5 +1,6 @@
 package com.snaacker.sample.persistent;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -31,8 +32,8 @@ public class Offer extends BaseObject {
     @Column(name = "program_logo")
     protected String programLogo;
 
-    @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "price_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "price_id", referencedColumnName = "id")
     protected Price priceHistory;
 
     @Column(name = "warranty")
@@ -65,4 +66,7 @@ public class Offer extends BaseObject {
 
     @Column(name = "dateFormat")
     protected String dateFormat;
+
+    @OneToOne(mappedBy = "offer")
+    protected Product product;
 }

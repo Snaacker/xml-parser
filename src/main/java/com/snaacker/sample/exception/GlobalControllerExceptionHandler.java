@@ -1,5 +1,6 @@
 package com.snaacker.sample.exception;
 
+import java.io.IOException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +12,16 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(XMLParserException.class)
-    protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
+    protected ResponseEntity<Object> handleBadRequest(RuntimeException exception, WebRequest request) {
         String bodyOfResponse = "Bad request";
         return handleExceptionInternal(
-                ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+                exception, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler({XMLParserServerException.class, IOException.class})
+    protected ResponseEntity<Object> handleCrash(RuntimeException exception, WebRequest request) {
+        String bodyOfResponse = "Internal Server Error";
+        return handleExceptionInternal(
+            exception, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 }

@@ -3,6 +3,7 @@ package com.snaacker.sample.controller;
 import com.snaacker.sample.model.ProductResponse;
 import com.snaacker.sample.service.ProductService;
 import java.io.IOException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,13 +26,12 @@ public class ProductController {
     }
 
     @GetMapping("/product/{id}")
-    public ResponseEntity<ProductResponse> getProductsByProductFeedId(@PathVariable Long id) {
+    public ResponseEntity<List<ProductResponse>> getProductsByProductFeedId(@PathVariable Long id) {
         return new ResponseEntity<>(productService.getProductsByProductFeedId(id), HttpStatus.OK);
     }
 
     @PostMapping("/product")
-    public ResponseEntity<String> uploadXML(@RequestParam("file") MultipartFile multipartFile)
-            throws IOException {
+    public ResponseEntity<String> uploadXML(@RequestParam("file") MultipartFile multipartFile) {
         return new ResponseEntity<>(productService.loadProducts(multipartFile), HttpStatus.OK);
     }
 }

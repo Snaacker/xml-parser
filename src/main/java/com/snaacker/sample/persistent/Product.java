@@ -84,8 +84,8 @@ public class Product extends BaseObject {
     @Column(name = "sku")
     protected String sku;
 
-    @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "offer_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "offer_id", referencedColumnName = "id")
     protected Offer offer;
 
     @Column(name = "grouping_id")

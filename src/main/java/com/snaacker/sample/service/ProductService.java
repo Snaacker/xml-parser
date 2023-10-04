@@ -1,6 +1,6 @@
 package com.snaacker.sample.service;
 
-import com.snaacker.sample.exception.XMLParserException;
+import com.snaacker.sample.exception.XMLParserServerException;
 import com.snaacker.sample.model.ProductResponse;
 import com.snaacker.sample.model.xml.output.Result;
 import com.snaacker.sample.model.xml.output.Result.Products.Product;
@@ -16,29 +16,17 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 import java.util.Set;
-import javax.xml.XMLConstants;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import org.xml.sax.SAXException;
 
 @Service
 public class ProductService {
@@ -47,56 +35,41 @@ public class ProductService {
     final ProductRepository productRepository;
     final OfferRepository offerRepository;
     final PriceRepository priceRepository;
+    final FileProcessService fileProcessService;
 
     @Autowired
     public ProductService(
             final ProductRepository productRepository,
             final OfferRepository offerRepository,
-            final PriceRepository priceRepository) {
+            final PriceRepository priceRepository,
+            final FileProcessService fileProcessService) {
         this.productRepository = productRepository;
         this.offerRepository = offerRepository;
         this.priceRepository = priceRepository;
+        this.fileProcessService = fileProcessService;
     }
 
-    public ProductResponse getProductsByProductFeedId(long productId) {
-        com.snaacker.sample.persistent.Product returnProduct =
-                productRepository.getReferenceById(productId);
+    public List<ProductResponse> getProductsByProductFeedId(long productId) {
+        List<com.snaacker.sample.persistent.Product> returnProduct =
+                productRepository.getProductByFeedId(productId);
         logger.info("Getting object: " + productId);
-        return new ProductResponse(returnProduct);
+        List<ProductResponse> returnList = new ArrayList<>();
+        returnProduct.forEach(product -> {
+            ProductResponse productResponse = new ProductResponse(product);
+            returnList.add(productResponse);
+        });
+        return returnList;
     }
 
-    public String loadProducts(MultipartFile multipartFile) throws IOException {
+    public String loadProducts(MultipartFile multipartFile) {
         String fileName =
                 StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        String tempFileName = saveFileToServer(fileName, multipartFile);
-        schemaValidate(tempFileName);
-        Result result = readObjectFromFile(tempFileName);
+        logger.info("Start reading " + fileName);
+        String tempFileName = fileProcessService.saveFileToServer(fileName, multipartFile);
+        fileProcessService.schemaValidate(tempFileName);
+        Result result = fileProcessService.readObjectFromFile(tempFileName);
         saveToDB(result);
         return "OK";
-    }
-
-    private void schemaValidate(String tempFileName) {
-        try {
-            SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            ClassLoader classLoader = getClass().getClassLoader();
-            URL resource = classLoader.getResource("Products_Def.xsd");
-            if (resource == null) {
-                logger.error("Schema is missing");
-                throw new IllegalArgumentException("XSD file is missing ");
-            }
-            Schema schema = factory.newSchema(new File(resource.toURI()));
-            Validator validator = schema.newValidator();
-            File xmlFile = new File("files-upload/" + tempFileName);
-            validator.validate(new StreamSource(xmlFile));
-        } catch (IOException | URISyntaxException e) {
-            logger.error("Exception while validating file: " + e.getMessage());
-            throw new XMLParserException("Exception while validating file: " + e.getMessage());
-        } catch (SAXException e) {
-            logger.error(
-                    "Schema violate, please provide file with correct schema " + e.getMessage());
-            throw new XMLParserException(
-                    "Schema violate, please provide file with correct schema " + e.getMessage());
-        }
     }
 
     private void saveToDB(Result result) {
@@ -190,54 +163,5 @@ public class ProductService {
         offer.setShippingCost(inputOfferObject.getShippingCost());
         offerRepository.save(offer);
         return offer;
-    }
-
-    private Result readObjectFromFile(String filename) {
-        File xmlFile = new File("files-upload/" + filename);
-
-        JAXBContext jaxbContext;
-        try {
-            logger.debug("Load object from file " + xmlFile);
-            jaxbContext = JAXBContext.newInstance(Result.class);
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            return (Result) jaxbUnmarshaller.unmarshal(xmlFile);
-        } catch (JAXBException e) {
-            logger.error(e.getMessage());
-            throw new XMLParserException("Unable to load object", e);
-        }
-    }
-
-    public String saveFileToServer(String fileName, MultipartFile multipartFile)
-            throws IOException {
-        Path uploadPath = Paths.get("files-upload");
-
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
-        }
-
-        String fileCode = randomAlphanumeric();
-        String serverFileName = fileCode + "-" + fileName;
-        try (InputStream inputStream = multipartFile.getInputStream()) {
-            Path filePath = uploadPath.resolve(serverFileName);
-            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            logger.error(e.getMessage());
-            throw new XMLParserException("Could not save file: " + fileName, e);
-        }
-        return fileCode + "-" + fileName;
-    }
-
-    private String randomAlphanumeric() {
-        int leftLimit = 97; // letter 'a'
-        int rightLimit = 122; // letter 'z'
-        int targetStringLength = 10;
-        Random random = new Random();
-        StringBuilder buffer = new StringBuilder(targetStringLength);
-        for (int i = 0; i < targetStringLength; i++) {
-            int randomLimitedInt =
-                    leftLimit + (int) (random.nextFloat() * (rightLimit - leftLimit + 1));
-            buffer.append((char) randomLimitedInt);
-        }
-        return buffer.toString();
     }
 }
