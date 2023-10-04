@@ -9,6 +9,12 @@ Sample application for parser xml file and import to DB
 ### 1. Use startup script
 Run command ```./local-startup.sh```
 
+This command will
+- Start a Mysql docker container name `db`, expose port 3306
+- Create an empty db with default user/password
+- Export environment variables
+- Start application with ```./gradlew bootRun```
+
 ### 2.Manually start with Gradle
 Set environment value for
 - DATABASE_URL_CUSTOMIZE
@@ -63,3 +69,4 @@ Return 200 "OK" with list JSON object
 - JUnit 5: testing framework
 - Lombok: minimize/remove the boilerplate code in POJO
 - Jakarta XML Binding: automate the mapping between XML documents and Java objects
+- Jacoco: code coverage
