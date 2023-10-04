@@ -21,7 +21,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine'
-    testImplementation 'com.h2database:h2:2.1.220'
+    testImplementation 'com.h2database:h2:2.2.220'
 }
 
 tasks.named('test') {
