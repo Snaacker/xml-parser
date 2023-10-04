@@ -21,14 +21,13 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine'
-    testImplementation 'com.h2database:h2:2.1.212'
+    testImplementation 'com.h2database:h2:2.1.220'
 }
-
-
 
 tasks.named('test') {
     filter {
         excludeTestsMatching "*EndpointTest"
+        excludeTestsMatching "*RepositoryTest"
     }
     useJUnitPlatform()
 }
@@ -36,6 +35,7 @@ tasks.named('test') {
 task integrationTest(type: Test) {
     filter{
         includeTestsMatching "*EndpointTest"
+        includeTestsMatching "*RepositoryTest"
     }
     useJUnitPlatform()
 }
