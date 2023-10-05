@@ -27,9 +27,6 @@ dependencies {
 }
 
 tasks.named('test') {
-    filter {
-        excludeTestsMatching "*IntegrationTest"
-    }
     useJUnitPlatform()
 }
 
@@ -45,30 +42,20 @@ jacocoTestReport{
                "com/snaacker/sample/exception/*",
                 "com/snaacker/sample/model/*",
                 "com/snaacker/sample/persistent/*",
-                "com/snaacker/sample/repository/*"
+                "com/snaacker/sample/repository/*",
+                "com/snaacker/sample/XMLParserApplication"
             ])
         }))
     }
 }
 
-task integrationTest(type: Test) {
-    filter{
-        includeTestsMatching "*IntegrationTest"
-    }
-    useJUnitPlatform()
-}
-
-check.dependsOn integrationTest
-// Add these START
 bootJar {
     archiveClassifier.set('boot')
 }
 
-
 spotless {
     format 'misc', {
         target '*.gradle', '*.md', '.gitignore'
-        // define the steps to apply to those files
         trimTrailingWhitespace()
         indentWithSpaces()
         endWithNewline()

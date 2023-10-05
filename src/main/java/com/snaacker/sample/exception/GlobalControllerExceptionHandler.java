@@ -19,6 +19,14 @@ public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHan
                 exception, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
+    @ExceptionHandler(XMLParserNotFoundException.class)
+    protected ResponseEntity<Object> handleNotFound(
+            RuntimeException exception, WebRequest request) {
+        String bodyOfResponse = "Object not found";
+        return handleExceptionInternal(
+                exception, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
     @ExceptionHandler({XMLParserServerException.class, IOException.class})
     protected ResponseEntity<Object> handleCrash(RuntimeException exception, WebRequest request) {
         String bodyOfResponse = "Internal Server Error";

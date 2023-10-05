@@ -32,7 +32,7 @@ public class ProductControllerTest extends FixtureTest {
 
     @Test
     public void testLoadProductShouldSuccess() throws IOException {
-        Resource fileResource = new ClassPathResource("test.xml");
+        Resource fileResource = new ClassPathResource(VALID_XML_FILE);
         MockMultipartFile testFile =
                 new MockMultipartFile(
                         "test",

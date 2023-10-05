@@ -1,5 +1,6 @@
 package com.snaacker.sample.service;
 
+import com.snaacker.sample.exception.XMLParserNotFoundException;
 import com.snaacker.sample.model.ProductResponse;
 import com.snaacker.sample.model.xml.output.Result;
 import com.snaacker.sample.model.xml.output.Result.Products.Product;
@@ -53,6 +54,9 @@ public class ProductService {
                     ProductResponse productResponse = new ProductResponse(product);
                     returnList.add(productResponse);
                 });
+        if (returnList.isEmpty()) {
+            throw new XMLParserNotFoundException("Object not found");
+        }
         return returnList;
     }
 

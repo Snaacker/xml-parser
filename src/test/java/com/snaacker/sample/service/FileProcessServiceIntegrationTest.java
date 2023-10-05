@@ -26,19 +26,19 @@ public class FileProcessServiceIntegrationTest extends FixtureTest {
 
     @AfterAll
     public static void teardown() throws IOException {
-        Files.delete(Paths.get(TEMP_FOLDER_NAME + "/" + "sample.xml"));
-        Files.delete(Paths.get(TEMP_FOLDER_NAME + "/" + "test.xml"));
+        Files.delete(Paths.get(TEMP_FOLDER_NAME + "/" + VALID_XML_FILE));
+        Files.delete(Paths.get(TEMP_FOLDER_NAME + "/" + INVALID_XML_FILE));
     }
 
     @BeforeAll
     public static void setup() {
-        copyToTestFolder("test.xml");
-        copyToTestFolder("sample.xml");
+        copyToTestFolder(INVALID_XML_FILE);
+        copyToTestFolder(VALID_XML_FILE);
     }
 
     @Test
     public void testLoadCorrectXMLFileShouldSuccess() {
-        assertDoesNotThrow(() -> fileProcessService.schemaValidate("sample.xml"));
+        assertDoesNotThrow(() -> fileProcessService.schemaValidate(VALID_XML_FILE));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class FileProcessServiceIntegrationTest extends FixtureTest {
 
     @Test
     public void testLoadInvalidXMLFileShouldThrowException() {
-        assertThatThrownBy(() -> fileProcessService.schemaValidate("test.xml"))
+        assertThatThrownBy(() -> fileProcessService.schemaValidate(INVALID_XML_FILE))
                 .isInstanceOf(XMLParserException.class)
                 .hasMessageContaining(
                         "XML document structures must start and end within the same entity.");
@@ -71,12 +71,12 @@ public class FileProcessServiceIntegrationTest extends FixtureTest {
 
     @Test
     public void testReadObjectFromFileShouldSuccessfully() {
-        assertDoesNotThrow(() -> fileProcessService.readObjectFromFile("sample.xml"));
+        assertDoesNotThrow(() -> fileProcessService.readObjectFromFile(VALID_XML_FILE));
     }
 
     @Test
     public void testReadObjectFromInvalidXMLFileShouldThrowException() {
-        assertThatThrownBy(() -> fileProcessService.readObjectFromFile("test.xml"))
+        assertThatThrownBy(() -> fileProcessService.readObjectFromFile(INVALID_XML_FILE))
                 .isInstanceOf(XMLParserServerException.class)
                 .hasMessageContaining("Unable to load object");
     }

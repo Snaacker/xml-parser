@@ -1,11 +1,17 @@
 # XML Parser application
-Sample application for parser xml file and import to DB
+[![Java CI with Gradle](https://github.com/Snaacker/xml-parser/actions/workflows/gradle.yml/badge.svg)](https://github.com/Snaacker/xml-parser/actions/workflows/gradle.yml)
 
-# Prerequisite
+Sample application for parser xml file and import to DB
+## Usage
+- Upload and validate xml file
+- Save objects to DB
+- Query objects by offer feed id
+
+## Prerequisite
 - Java 17
 - Docker
 
-# How to start application
+## How to start application
 ### 1. Use startup script
 Run command ```./local-startup.sh```
 
@@ -20,6 +26,7 @@ Set environment value for
 - DATABASE_URL_CUSTOMIZE
 - USER_NAME
 - USER_PASSWORD
+
 For example:
 ```
 export DATABASE_URL_CUSTOMIZE="jdbc:mysql://localhost:3306/xmlparser"
@@ -28,10 +35,11 @@ export USER_PASSWORD=admin
 ```
 Run command ```./gradlew bootRun```
 
-# How to build
+**NOTE**: Be carefully since this will drop your local database
+## How to build
 Run command ```./gradlew clean build```
 
-# How to use API Endpoint
+## How to use API Endpoint
 
 ### Check application health
 Return 200 "OK" if application is up and running
@@ -47,15 +55,15 @@ curl -F file=@"[PATH_TO_XML_FILE]" http://localhost:8080/api/v1/product
 Return 200 "OK" with list JSON object
 - GET /api/v1/product/{id}
 ``` curl http://localhost:8080/api/v1/product/1```
-# Project structure explanation
-## Folders
+## Project structure explanation
+### Folders
 - src/main
 - src/test
 - files-upload: storing upload file from local
 - gradle: Gradle folder
 - .github: Github action pipeline
 
-## Packages explanation
+### Packages explanation
 - controller: handle HTTP request from client
 - model: POJO objects for parsing xml file or HTTP response object
 - persistent: declare entities use in the application
@@ -63,7 +71,7 @@ Return 200 "OK" with list JSON object
 - service: handle application business
 - exception: declare application exception + handle exception
 
-# Libraries usage
+## Libraries usage
 - Spring/Spring Boot: create web application with minimum configuration
 - Spring JPA: store data in a relational database
 - JUnit 5: testing framework

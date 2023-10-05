@@ -12,8 +12,4 @@ public class XMLParserServerException extends RuntimeException {
     public XMLParserServerException(String message, Throwable cause) {
         super(message);
     }
-
-    public XMLParserServerException() {
-        super();
-    }
 }
