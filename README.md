@@ -35,7 +35,7 @@ export USER_PASSWORD=admin
 ```
 Run command ```./gradlew bootRun```
 
-**NOTE**: Be carefully since this will drop your local database
+**NOTE**: Be carefully since this will drop your local database (ddl-auto is set to create-drop)
 ## How to build
 Run command ```./gradlew clean build```
 
@@ -44,21 +44,24 @@ Run command ```./gradlew clean build```
 ### Check application health
 Return 200 "OK" if application is up and running
 - GET /healthCheck
+
 ``` curl http://localhost:8080/healthCheck```
 ### Upload xml file to application and load to DB
 Return 200 "OK" if file was load successfully to DB
 - POST /api/v1/product
+
 ```
 curl -F file=@"[PATH_TO_XML_FILE]" http://localhost:8080/api/v1/product
  ```
 ### Get product by feed_id
 Return 200 "OK" with list JSON object
-- GET /api/v1/product/{id}
+- GET /api/v1/product/{id}   
+
 ``` curl http://localhost:8080/api/v1/product/1```
 ## Project structure explanation
 ### Folders
-- src/main
-- src/test
+- src/main: application source code
+- src/test: testing source code
 - files-upload: storing upload file from local
 - gradle: Gradle folder
 - .github: Github action pipeline
