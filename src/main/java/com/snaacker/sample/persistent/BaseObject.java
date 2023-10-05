@@ -19,13 +19,13 @@ import org.springframework.data.annotation.LastModifiedDate;
 public class BaseObject {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected long id;
+    private long id;
 
     @CreatedDate
     @Column(name = "created_date")
-    protected Date createdDate;
+    private Date createdDate;
 
     @LastModifiedDate
     @Column(name = "updated_date")
-    protected Date updatedDate;
+    private Date updatedDate;
 }

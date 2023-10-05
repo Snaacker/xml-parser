@@ -21,52 +21,52 @@ import lombok.Setter;
 public class Offer extends BaseObject {
 
     @Column(name = "feed_id")
-    protected long feedId;
+    private long feedId;
 
     @Column(name = "product_url")
-    protected String productUrl;
+    private String productUrl;
 
     @Column(name = "program_name")
-    protected String programName;
+    private String programName;
 
     @Column(name = "program_logo")
-    protected String programLogo;
+    private String programLogo;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "price_id", referencedColumnName = "id")
-    protected Price priceHistory;
+    private Price priceHistory;
 
     @Column(name = "warranty")
-    protected String warranty;
+    private String warranty;
 
     @Column(name = "in_stock")
-    protected int inStock;
+    private int inStock;
 
     @Column(name = "availability")
-    protected String availability;
+    private String availability;
 
     @Column(name = "delivery_time")
-    protected String deliveryTime;
+    private String deliveryTime;
 
     @Column(name = "condition_")
-    protected String condition;
+    private String condition;
 
     @Column(name = "shipping_cost")
-    protected String shippingCost;
+    private String shippingCost;
 
     // id in xml file
     @Column(name = "offer_id")
-    protected String offerId;
+    private String offerId;
 
     @Column(name = "source_product_id")
-    protected String sourceProductId;
+    private String sourceProductId;
 
     @Column(name = "modified_date")
-    protected BigInteger modifiedDate;
+    private BigInteger modifiedDate;
 
     @Column(name = "dateFormat")
-    protected String dateFormat;
+    private String dateFormat;
 
     @OneToOne(mappedBy = "offer")
-    protected Product product;
+    private Product product;
 }

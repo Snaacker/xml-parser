@@ -22,19 +22,19 @@ import lombok.Setter;
 public class Product extends BaseObject {
 
     @Column(name = "name")
-    protected String name;
+    private String name;
 
     @Column(name = "description")
-    protected String description;
+    private String description;
 
     @Column(name = "product_image_height")
-    protected short productImageHeight;
+    private short productImageHeight;
 
     @Column(name = "product_image_width")
-    protected short productImageWidth;
+    private short productImageWidth;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.MERGE)
-    protected Set<Category> categories;
+    private Set<Category> categories;
 
     @Column(name = "product_type")
     String productType;
@@ -46,51 +46,51 @@ public class Product extends BaseObject {
     String company;
 
     @Column(name = "weight")
-    protected String weight;
+    private String weight;
 
     @Column(name = "size")
-    protected String size;
+    private String size;
 
     @Column(name = "model")
-    protected String model;
+    private String model;
 
     @Column(name = "brand")
-    protected String brand;
+    private String brand;
 
     @Column(name = "manufacturer")
-    protected String manufacturer;
+    private String manufacturer;
 
     @Column(name = "tech_specs")
-    protected String techSpecs;
+    private String techSpecs;
 
     @Column(name = "short_description")
-    protected String shortDescription;
+    private String shortDescription;
 
     @Column(name = "promo_text")
-    protected String promoText;
+    private String promoText;
 
     @Column(name = "ean")
-    protected String ean;
+    private String ean;
 
     @Column(name = "upc")
-    protected String upc;
+    private String upc;
 
     @Column(name = "isbn")
-    protected String isbn;
+    private String isbn;
 
     @Column(name = "mpn")
-    protected String mpn;
+    private String mpn;
 
     @Column(name = "sku")
-    protected String sku;
+    private String sku;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "offer_id", referencedColumnName = "id")
-    protected Offer offer;
+    private Offer offer;
 
     @Column(name = "grouping_id")
-    protected String groupingId;
+    private String groupingId;
 
     @Column(name = "language")
-    protected String language;
+    private String language;
 }

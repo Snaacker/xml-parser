@@ -19,18 +19,18 @@ import lombok.Setter;
 @Table(name = "price")
 public class Price extends BaseObject {
     @Column(name = "price_value")
-    protected BigDecimal value;
+    private BigDecimal value;
 
     @Column(name = "currency")
-    protected String currency;
+    private String currency;
 
     // date field in xml
     @Column(name = "valid_date")
-    protected BigInteger validDate;
+    private BigInteger validDate;
 
     @Column(name = "date_format")
-    protected String dateFormat;
+    private String dateFormat;
 
     @OneToOne(mappedBy = "priceHistory")
-    protected Offer offer;
+    private Offer offer;
 }
