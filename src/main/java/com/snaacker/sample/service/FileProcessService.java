@@ -95,7 +95,7 @@ public class FileProcessService {
     }
 
     public Result readObjectFromFile(String filename) {
-        File xmlFile = new File("files-upload/" + filename);
+        File xmlFile = new File(TEMP_FOLDER_NAME + "/" + filename);
 
         JAXBContext jaxbContext;
         try {

@@ -78,7 +78,7 @@ curl http://localhost:8080/api/v1/product/1
 - service: handle application business
 - exception: declare application exception + handle exception
 
-## Libraries usage
+## Libraries
 - Spring/Spring Boot: create web application with minimum configuration
 - Spring JPA: store data in a relational database
 - JUnit 5: testing framework
