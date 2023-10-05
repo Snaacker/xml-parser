@@ -55,7 +55,7 @@ curl -F file=@"[PATH_TO_XML_FILE]" http://localhost:8080/api/v1/product
  ```
 ### Get product by feed_id
 Return 200 "OK" with list JSON object
-- GET /api/v1/product/{id}   
+- GET /api/v1/product/{id}
 
 ``` curl http://localhost:8080/api/v1/product/1```
 ## Project structure explanation
