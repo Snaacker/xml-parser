@@ -65,9 +65,10 @@ public class ProductService {
                 StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
         logger.info("Start reading " + fileName);
         String tempFileName = fileProcessService.saveFileToServer(fileName, multipartFile);
+        logger.info("Start validate schema");
         fileProcessService.schemaValidate(tempFileName);
-        Result result = fileProcessService.readObjectFromFile(tempFileName);
-        saveToDB(result);
+        logger.info("Start save object to DB");
+        saveToDB(fileProcessService.readObjectFromFile(tempFileName));
         return "OK";
     }
 
@@ -99,7 +100,7 @@ public class ProductService {
             outputProduct.setCompany(
                     inputProduct.getFields().getField().stream()
                             .filter(field -> field.getName().equals("Company"))
-                            .findFirst()
+                            .findAny()
                             .get()
                             .getValue());
             outputProduct.setProductType(
